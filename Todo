@@ -1,0 +1,28 @@
+Projet : 
+    ☐ Initialiser le projet
+        ☐ npm init -y
+    Installer les dépendances : 
+        ☐ Express :Un framework web pour Node.js qui facilite la création d'applications web et d'API.
+        ☐ Nodemon :Un outil qui surveille les modifications dans votre application Node.js et redémarre automatiquement le serveur.
+        ☐ Mongoose : Une bibliothèque ODM (Object Data Modeling) pour MongoDB et Node.js, qui facilite l'interaction avec une base de données MongoDB.
+        ☐ bcryptjs : Une bibliothèque permettant de hasher les mots de passe et de les comparer avec ceux stockés de manière sécurisée.
+        ☐ backpack-core : Un outil de développement pour Node.js, fournissant une configuration préconfigurée pour les projets Node.js.
+        ☐ cors : Un package Node.js qui permet de gérer les autorisations CORS (Cross-Origin Resource Sharing) pour les applications Express.js.
+        ☐ dotenv : Une bibliothèque permettant de charger les variables d'environnement à partir d'un fichier .env dans Node.js.
+        ☐ jsonwebtoken : Une bibliothèque permettant de générer et de vérifier des jetons Web JSON (JWT) utilisés pour l'authentification et l'autorisation.
+      
+        ☐ Creer babelrc, gitignore, env et .env-sample
+    ☐ Creer le lien sur github    
+    ☐ Installer Git flow
+    creer les routes:
+        inscription :
+            ☐ creer la fonction store
+            ☐ creer ma methode post pour la route inscription
+            ☐ linker userRouter au prefixe user
+        Refacturing :
+            ☐ Inserer les données (req.body + url encoded)
+            ☐ Creer le modele user
+        connexion : 
+            ☐ creer le fonction login
+            ☐ creer  la methode post pour la fonction login dans le fichier userRoute
+            ☐ commit le code
