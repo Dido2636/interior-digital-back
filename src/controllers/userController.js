@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import User from "../models/userModel";
 
-const createUser = async (req, res) => {
+export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
   try {
     let newUser = await User.create({ name, email, password });
@@ -17,7 +17,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -33,7 +33,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-const getAllUser = async (req, res) => {
+export const getAllUser = async (req, res) => {
   try {
     const user = await User.find();
     res.json(user);
@@ -42,4 +42,4 @@ const getAllUser = async (req, res) => {
   }
 };
 
-export default { getAllUser, createUser, loginUser };
+
