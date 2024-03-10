@@ -4,9 +4,10 @@ import bcrypt from "bcryptjs";
 const userSchema = new Schema({
   name: String,
   firstname: String,
-  email: { type: String },
-  password: String,
-  comment: [{ type: Schema.Types.ObjectId, ref: "Comments" }],
+  email: { type: String, required: true},
+  password: { type: String, required: true},
+  role: { type: String, default: "User" },
+  comment: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 userSchema.pre("save", async function (next) {

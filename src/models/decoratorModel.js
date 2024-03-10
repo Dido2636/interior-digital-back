@@ -2,11 +2,14 @@ import { Schema, mongoose } from "mongoose";
 import bcrypt from "bcryptjs";
 
 const decoratorSchema = new Schema({
-  name: String,
-  firstname: String,
-  email: { type: String },
-  password: String,
+  name:{ type: String, required: true},
+  firstname:{ type: String, required: true},
+  email: { type: String, required: true},
+  password: { type: String, required: true},
+  role: { type: String, default: "User" },
+  comment: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
+
 
 decoratorSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
