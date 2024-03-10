@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import Decorator from "../models/decoratorModel";
 
-const getAlldecorator = async (req, res) => {
+export const getAlldecorator = async (req, res) => {
   try {
     const decorator = await Decorator.find();
     res.json(decorator);
@@ -12,7 +12,7 @@ const getAlldecorator = async (req, res) => {
   }
 };
 
-const createdecorator = async (req, res) => {
+export const createdecorator = async (req, res) => {
   const {name, email, password} = req.body;
   try {
     let newDecorator = await Decorator.create({name, email, password});
@@ -23,7 +23,7 @@ const createdecorator = async (req, res) => {
   }
 };
 
-const logindecorator = async (req, res) => {
+export const logindecorator = async (req, res) => {
   const { email, password } = req.body;
   try {
     const decorator = await Decorator.findOne({ email });
@@ -42,4 +42,4 @@ const logindecorator = async (req, res) => {
   }
 };
 
-export default {getAlldecorator, createdecorator, logindecorator}
+
