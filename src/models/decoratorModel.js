@@ -2,25 +2,27 @@ import { Schema, mongoose } from "mongoose";
 import bcrypt from "bcryptjs";
 
 const decoratorSchema = new Schema({
-  name:{ type: String, required: true},
-  firstname:{ type: String, required: true},
-  email: { type: String, required: true},
-  password: { type: String, required: true},
+  company: String,
+  firstname: String,
+  email: { type: String, required: true },
+  password: { type: String, required: true },
   role: { type: String, default: "User" },
   comment: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
+decoratorSchema.methods.encryptPassword = async (password) => {
+  const salt = await bcrypt.genSalt(6);
+  const hash = await bcrypt.hash(password, salt);
+  return hash;
+};
 
-decoratorSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  try {
-    const hashedPassword = await bcrypt.hash(this.password, 10);
-    this.password = hashedPassword;
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
+decoratorSchema.methods.validPassword = async (
+  candidatePassword,
+  oldPassword
+) => {
+  const result = await bcrypt.compare(candidatePassword, oldPassword);
+  return result;
+};
 
 const Decorator = mongoose.model("Decorator", decoratorSchema);
 

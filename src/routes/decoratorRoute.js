@@ -1,12 +1,11 @@
 import {Router} from "express";
-import { createdecorator, logindecorator } from "../controllers/decoratorController";
+import { login,register } from "../controllers/decoratorController";
+
 
 const decoratorRouter = Router()
 
-
-
-decoratorRouter.post("/register", createdecorator);
-decoratorRouter.post("/login", logindecorator);
+decoratorRouter.post("/register", register);
+decoratorRouter.post("/login", login);
 
 
 export default decoratorRouter

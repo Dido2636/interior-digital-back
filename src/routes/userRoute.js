@@ -1,10 +1,14 @@
 import {Router} from "express";
-import { createUser, loginUser } from "../controllers/userController";
+import { register, login } from "../controllers/userController";
+
 
 const userRouter = Router()
 
-userRouter.post("/register", createUser)
-userRouter.get("/login", loginUser)
+userRouter.get("/register", (req, res) => res.render("Inscription"))
+userRouter.get("/login", (req, res) => res.render("Connexion"))
+
+userRouter.post("/register", register)
+userRouter.post("/login", login)
 
 
 export default userRouter

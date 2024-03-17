@@ -1,45 +1,55 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import "dotenv/config";
 import Decorator from "../models/decoratorModel";
+import { generateAuthToken } from "../middlewares/auth";
 
 export const getAlldecorator = async (req, res) => {
   try {
     const decorator = await Decorator.find();
     res.json(decorator);
   } catch (error) {
-    res.json(error.message);
+    res.json({ message: error.message });
   }
 };
 
-export const createdecorator = async (req, res) => {
-  const {name, email, password} = req.body;
+export const register = async (req, res) => {
+  const { company, firstname, email, password } = req.body;
   try {
-    let newDecorator = await Decorator.create({name, email, password});
+    const newDecorator = new Decorator({ company, firstname, email, password });
+    newDecorator.password = await newDecorator.encryptPassword(
+      req.body.password
+    );
+    await newDecorator.save();
+    const token = generateAuthToken(newDecorator);
     console.log(newDecorator);
-    res.json({ message: "Votre espcace de décorateur ", newDecorator });
+    res.json({
+      token,
+      message: "vous etes inscrit, vous pouvez vous connectez",
+      newDecorator,
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
   }
 };
 
-export const logindecorator = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const decorator = await Decorator.findOne({ email });
-    if (decorator && (await bcrypt.compare(password, decorator.password))) {
-      const token = jwt.sign(
-        { email: decorator.email },
-        process.env.JWT_secret
-      );
-      res.json({ token });
-      console.log(token)
-    } else {
-      res.status(401).json({ error: "Vos identifiants sont invalides" });
+    const decorator = await Decorator.findOne({ email }).select("+password");
+    if (!decorator) {
+      const error = new Error("not found");
+      throw error;
     }
+    const validPassword = await decorator.validPassword(
+      password,
+      decorator.password
+    );
+    if (!validPassword) {
+      const error = new Error("Invalid password");
+      throw error;
+    }
+    const token = generateAuthToken(decorator);
+    res.json({ token, decorator, message: "vous etes connecté" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
   }
 };
-
-
