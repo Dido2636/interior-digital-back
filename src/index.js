@@ -28,6 +28,7 @@ app.use(express.json());
 app.get("/", (req, res) => res.render("Home"));
 app.use("/users", userRouter);
 app.use("/decorators", decoratorRouter);
+
 app.use("/media", mediaRouter);
 app.use("/comment", commentRouter);
 app.use("/uploads", express.static("uploads"));

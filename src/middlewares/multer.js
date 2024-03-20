@@ -1,6 +1,7 @@
 import multer from "multer";
 
 
+
 const mediaStorage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, "uploads/");
@@ -10,6 +11,6 @@ const mediaStorage = multer.diskStorage({
     },
   });
 
-  const uploadMedia = multer({storage: mediaStorage});
+  const uploadMedia = multer({storage: mediaStorage}).array("mediaType");
 
   export {uploadMedia}

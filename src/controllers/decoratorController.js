@@ -46,7 +46,7 @@ export const login = async (req, res) => {
     if (!validPassword) {
       const error = new Error("Invalid password");
       throw error;
-    }
+    }console.log(decorator)
     const token = generateAuthToken(decorator);
     res.json({ token, decorator, message: "vous etes connecté" });
   } catch (error) {

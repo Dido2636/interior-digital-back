@@ -6,7 +6,8 @@ const decoratorSchema = new Schema({
   firstname: String,
   email: { type: String, required: true },
   password: { type: String, required: true },
-  role: { type: String, default: "User" },
+  role: { type: String, default: "Decorator" },
+  isadmin: { type: Boolean, default:false },
   comment: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
