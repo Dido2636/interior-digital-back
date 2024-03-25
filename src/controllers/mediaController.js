@@ -31,14 +31,13 @@ export const getMediaById = async (req, res) => {
 
 export const createMedia = async (req, res) => {
   try {
-   
     const media = new Media({
       title: req.body.title,
       description: req.body.description,
       mediaType: req.file ? req.file.path : null,
       author: req.body.author,
       comments: req.body.comments,
-      createAt: req.body.createAt
+      createAt: req.body.createAt,
     });
 
     await media.save();
